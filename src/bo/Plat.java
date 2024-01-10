@@ -79,6 +79,13 @@ public void setId(int id) {
 	public void setPrix(float prix) {
 		this.prix = prix;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Plat [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + "]";
+	}
 	
 	
 	
