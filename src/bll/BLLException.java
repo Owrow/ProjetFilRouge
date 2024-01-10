@@ -1,5 +1,6 @@
 package bll;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,11 @@ public class BLLException extends Exception {
 	public BLLException() {
 	}
 
+
 	public BLLException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
 	
 	public void ajouterErreur(String erreur) {
 		erreurs.add(erreur);
@@ -22,4 +25,5 @@ public class BLLException extends Exception {
 	public List<String> getErreurs() {
 		return erreurs;
 	}
+
 }

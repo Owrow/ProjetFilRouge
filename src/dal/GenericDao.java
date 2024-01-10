@@ -2,8 +2,7 @@ package dal;
 
 import java.util.List;
 
-import bo.Categorie;
-import bo.Plat;
+
 
 public interface GenericDao<T> {
 	
@@ -13,4 +12,5 @@ public interface GenericDao<T> {
 	void update(T donnee) throws DALException;
 	void delete(int T) throws DALException;
 	
+
 }
