@@ -87,6 +87,29 @@ public class CategorieDaoJDBCImpl implements GenericDao<Categorie> {
 
 		}
 	
+	@Override
+	public void insert(Categorie categorie) {
+		try {
+
+			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, categorie.getNom());
+			
+			ps.executeUpdate();
+
+
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) { 
+				int id = rs.getInt(1); 
+				categorie.setId(rs.getInt(id));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+	}
+		
+	
+	
 
 
 	@Override
@@ -138,4 +161,6 @@ public class CategorieDaoJDBCImpl implements GenericDao<Categorie> {
 
 
 	}
+
+
 }
