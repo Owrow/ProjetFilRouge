@@ -2,13 +2,15 @@ package dal;
 
 import java.util.List;
 
+import bo.Categorie;
 import bo.Plat;
 
 public interface GenericDao<T> {
 	
-	public List<Plat> selectAll();
-	public Plat selectById(int id);
-	public void update(Plat plat);
-	public void delete(int id);
+	public List<T> selectAll();
+	public T selectById(int T);
+	public void update(T donnee);
+	public void delete(int T);
+	
 
 }
