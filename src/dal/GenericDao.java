@@ -2,13 +2,14 @@ package dal;
 
 import java.util.List;
 
-import bo.Plat;
-
 public interface GenericDao<T> {
-	
-	public List<Plat> selectAll();
-	public Plat selectById(int id);
-	public void update(Plat plat);
-	public void delete(int id);
-
+	/*
+	 * Toutes les classes qui implémentent GenericDAO doivent proposer les méthodes selectAll,
+	 * selectById, update, insert, delete
+	 */
+	List<T> selectAll() throws DALException;
+	T selectById(int id) throws DALException;	
+	void insert(T donnee) throws DALException;
+	void update(T donnee) throws DALException;
+	void delete(int id) throws DALException;
 }
