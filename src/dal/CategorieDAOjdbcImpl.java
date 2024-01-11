@@ -9,19 +9,19 @@ import java.util.List;
 
 import bo.Categorie;
 
-public class CategorieDaoJDBCImpl implements GenericDao<Categorie> {
+public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 
 	private static final String TABLE_NAME = " categories ";
 
 	private static final String DELETE = "DELETE FROM"+ TABLE_NAME +" WHERE id = ?";
-	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET nom = ?, nature = ?, date_sortie = ? WHERE id = ?";
-	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (nom, nature, date_sortie) VALUES (?,?,?)";
+	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET nom = ?, WHERE id = ?";
+	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (nom) VALUES (?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM "+ TABLE_NAME +" WHERE id = ?";
 	private static final String SELECT = "SELECT * FROM "+ TABLE_NAME;
 
 	private Connection cnx;
 
-	public CategorieDaoJDBCImpl(){
+	public CategorieDAOjdbcImpl(){
 		cnx = ConnectionProvider.getConnection();
 	}
 
@@ -118,7 +118,7 @@ public class CategorieDaoJDBCImpl implements GenericDao<Categorie> {
 
 		PreparedStatement ps;
 		try {
-			ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, categorie.getNom());
 			ps.executeUpdate();
 

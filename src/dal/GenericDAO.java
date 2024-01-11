@@ -2,7 +2,7 @@ package dal;
 
 import java.util.List;
 
-public interface GenericDao<T> {
+public interface GenericDAO<T> {
 	
 	public List<T> selectAll();
 	public T selectById(int T);
