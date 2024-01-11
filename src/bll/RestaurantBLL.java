@@ -5,12 +5,12 @@ import java.util.List;
 
 import bo.Restaurant;
 import dal.DALException;
-import dal.GenericDao;
+import dal.GenericDAO;
 import dal.RestaurantDAOjdbcImpl;
 
 
 public class RestaurantBLL {
-	private GenericDao<Restaurant> dao;
+	private GenericDAO<Restaurant> dao;
 
 	public RestaurantBLL() throws BLLException {
 		try {

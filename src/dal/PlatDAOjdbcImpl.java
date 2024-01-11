@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Plat;
 
-public class PlatDaoJdbcImpl implements GenericDao<Plat> {
+public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 	private static final String TABLE_NAME = " plats ";
 
@@ -21,7 +21,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 	private Connection cnx;
 
-	public PlatDaoJdbcImpl() {
+	public PlatDAOjdbcImpl() {
 		cnx = ConnectionProvider.getConnection();
 	}
 
@@ -99,19 +99,26 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 	public void update(Plat plat) {
 		try {
-			PreparedStatement ps = cnx.prepareStatement(UPDATE);
+			PreparedStatement ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, plat.getNom());
 			ps.setString(2, plat.getDescription());
 			ps.setFloat (3, plat.getPrix() );
-			ps.setInt   (4, plat.getId());
-
 			ps.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) { 
+					int id = rs.getInt(1); 
+					plat.setId(id);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+	
 	public void delete(int id){
 
 		PreparedStatement ps;
