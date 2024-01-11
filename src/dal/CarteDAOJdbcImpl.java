@@ -37,7 +37,7 @@ private static final String TABLE_NAME = " cartes ";
 				cartes.add(carte);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations de la carte", e);
 
 		}
 		return cartes;
@@ -56,7 +56,7 @@ private static final String TABLE_NAME = " cartes ";
 
 }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer la carte d'id", e);
 			
 		}
 		return carte;
@@ -73,7 +73,7 @@ private static final String TABLE_NAME = " cartes ";
 				int id = rs.getInt(1); 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible d'inserer les donnees de la carte", e);
 		}
 	}
 	
@@ -84,7 +84,7 @@ private static final String TABLE_NAME = " cartes ";
 			ps.setInt(2, carte.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de mettre à jour les informations de la carte", e);
 		}
 	}
 	
@@ -96,7 +96,7 @@ private static final String TABLE_NAME = " cartes ";
 			if (nbLignesSupprimees == 0) {
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de supprimer la carte", e);
 		}
 	}
 	
