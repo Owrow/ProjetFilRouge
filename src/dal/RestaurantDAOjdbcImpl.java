@@ -24,6 +24,7 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 	private static final String SELECT = "SELECT * FROM " + TABLE_NAME;
 
 	private Connection cnx;
+	// pouet
 
 	public RestaurantDAOjdbcImpl() throws DALException {
 		cnx = ConnectionProvider.getConnection();
