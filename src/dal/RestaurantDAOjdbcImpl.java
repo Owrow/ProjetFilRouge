@@ -13,7 +13,7 @@ import bo.Restaurant;
 
 public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 
-	private static final String TABLE_NAME = " restaurant ";
+	private static final String TABLE_NAME = "restaurants";
 
 	private static final String DELETE = "DELETE FROM" + TABLE_NAME + " WHERE id = ?";
 	private static final String UPDATE = "UPDATE " + TABLE_NAME
@@ -24,8 +24,7 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 	private static final String SELECT = "SELECT * FROM " + TABLE_NAME;
 
 	private Connection cnx;
-	// pouet
-
+	
 	public RestaurantDAOjdbcImpl() throws DALException {
 		cnx = ConnectionProvider.getConnection();
 	}
@@ -101,6 +100,7 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 			ps.setString(2, restaurant.getAdresse());
 			ps.setTime(3, Time.valueOf(restaurant.getOuverture()));
 			ps.setTime(4, Time.valueOf(restaurant.getFermeture()));
+			ps.setInt(5,  restaurant.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DALException(
