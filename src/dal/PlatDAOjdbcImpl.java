@@ -21,11 +21,13 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 	private Connection cnx;
 
+
 	public PlatDAOjdbcImpl() {
+
 		cnx = ConnectionProvider.getConnection();
 	}
 
-	public List<Plat> selectAll(){
+	public List<Plat> selectAll() throws DALException{
 		List<Plat> listePlat = new ArrayList<>();
 
 
@@ -42,8 +44,7 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 			} 
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations du plat", e);
 		}
 
 
@@ -51,7 +52,7 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 		return listePlat;
 	}
 
-	public Plat selectById(int id)  {
+	public Plat selectById(int id) throws DALException  {
 		Plat plat = null;
 		PreparedStatement ps;
 		try {
@@ -65,8 +66,7 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations du plat de l'id", e);
 		}
 
 
@@ -75,7 +75,7 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 		return plat;
 	}
 
-	public void insert(Plat plat) {
+	public void insert(Plat plat) throws DALException {
 		try {
 
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -91,13 +91,13 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 				plat.setId(rs.getInt(id));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible d'inserer les donnees du plat", e);
 
 		}
 	}
 
 
-	public void update(Plat plat) {
+	public void update(Plat plat) throws DALException {
 		try {
 			PreparedStatement ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, plat.getNom());
@@ -106,33 +106,23 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 			ps.executeUpdate();
 
 
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) { 
-					int id = rs.getInt(1); 
-					plat.setId(id);
-				}
+		} catch (SQLException e) {
+			throw new DALException("Impossible de mettre à jour les informations du plat", e);
+		}
+	}
 
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void delete(int id) throws DALException {
+		try {
+			PreparedStatement ps = cnx.prepareStatement(DELETE);
+			ps.setInt(1, id);
+			int nbLignesSupprimees = ps.executeUpdate();
+			if (nbLignesSupprimees == 0) {
+				throw new DALException("Echec de suppression du plat d'id " + id, null);
 			}
+		} catch (SQLException e) {
+			throw new DALException("Impossible de supprimer ce plat d'id " + id, e);
+		}
+	}
 		
 		}
-	
-	public void delete(int id){
-
-		PreparedStatement ps;
-		try {
-			ps = cnx.prepareStatement(DELETE);
-			ps.setInt(1, id);
-		    ps.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-}
-
 
