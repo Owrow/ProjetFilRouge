@@ -8,6 +8,7 @@ public class Carte {
 	}
 	
 	public Carte(String nom) {
+		this.nom =nom;
 	}
 	
 	public Carte(int id, String nom) {
