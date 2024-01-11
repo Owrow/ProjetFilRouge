@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Categorie;
 
-public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
+public class CategorieDAOjdbcImpl implements GenericDao<Categorie> {
 
 	private static final String TABLE_NAME = " categories ";
 

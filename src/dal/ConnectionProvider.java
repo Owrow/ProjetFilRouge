@@ -8,8 +8,8 @@ public class ConnectionProvider {
 	
 	public static Connection getConnection(){
 		// modifier l'utilisateur, le mot de passe et le nom de la database pour se connecter
-		
-		String url = "jdbc:sqlserver://localhost;databasename=COMPOSANTS;trustservercertificate=true";
+		String dbName = System.getenv("DATABASE_NAME"); 
+		String url = "jdbc:sqlserver://localhost;databasename=" + dbName + ";trustservercertificate=true";
 		
 			try {
 				return DriverManager.getConnection(url, System.getenv("USER_SQLSERVER"), System.getenv("PASSWORD_SQLSERVER"));
