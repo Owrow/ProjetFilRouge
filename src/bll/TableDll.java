@@ -4,11 +4,11 @@ import java.util.List;
 
 import bo.Table;
 import dal.DALException;
-import dal.GenericDao;
+import dal.GenericDAO;
 import dal.TableDAOJdbcImpl;
 
 public class TableDll {
-		private GenericDao<Table> dao;
+		private GenericDAO<Table> dao;
 		
 		public TableDll() throws BLLException {
 			try {
