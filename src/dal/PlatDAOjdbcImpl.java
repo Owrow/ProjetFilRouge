@@ -99,10 +99,11 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 	public void update(Plat plat) throws DALException {
 		try {
-			PreparedStatement ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = cnx.prepareStatement(UPDATE);
 			ps.setString(1, plat.getNom());
 			ps.setString(2, plat.getDescription());
 			ps.setFloat (3, plat.getPrix() );
+			plat.setId(plat.getId());
 			ps.executeUpdate();
 
 

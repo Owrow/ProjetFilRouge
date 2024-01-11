@@ -25,7 +25,7 @@ public class Plat {
 	
 
  public Plat(int id, String nom, String description, float prix) {
-		super();
+		
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
