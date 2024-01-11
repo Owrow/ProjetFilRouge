@@ -2,9 +2,6 @@ package dal;
 
 import java.util.List;
 
-import bo.Categorie;
-import bo.Plat;
-
 public interface GenericDao<T> {
 	
 	public List<T> selectAll();
