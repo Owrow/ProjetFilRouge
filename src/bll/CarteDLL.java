@@ -3,12 +3,12 @@ package bll;
 import java.util.List;
 
 import bo.Carte;
-import dal.DALException;
-import dal.GenericDao;
 import dal.CarteDAOJdbcImpl;
+import dal.DALException;
+import dal.GenericDAO;
 
 public class CarteDLL {
-		private GenericDao<Carte> dao;
+		private GenericDAO<Carte> dao;
 		
 		public CarteDLL() throws BLLException {
 			try {

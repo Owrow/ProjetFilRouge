@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Carte;
 
-public class CarteDAOJdbcImpl implements GenericDao<Carte>{
+public class CarteDAOJdbcImpl implements GenericDAO<Carte>{
 private static final String TABLE_NAME = " cartes ";
 	
 	private static final String DELETE = "DELETE FROM "+ TABLE_NAME +" WHERE id = ?";

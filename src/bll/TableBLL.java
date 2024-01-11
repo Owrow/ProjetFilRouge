@@ -7,10 +7,10 @@ import dal.DALException;
 import dal.GenericDAO;
 import dal.TableDAOJdbcImpl;
 
-public class TableDLL {
+public class TableBLL {
 		private GenericDAO<Table> dao;
 		
-		public TableDLL() throws BLLException {
+		public TableBLL() throws BLLException {
 			try {
 				dao = new TableDAOJdbcImpl();
 			} catch (DALException e) {
