@@ -7,10 +7,10 @@ import dal.CarteDAOJdbcImpl;
 import dal.DALException;
 import dal.GenericDAO;
 
-public class CarteDLL {
+public class CarteBLL {
 		private GenericDAO<Carte> dao;
 		
-		public CarteDLL() throws BLLException {
+		public CarteBLL() throws BLLException {
 			try {
 				dao = new CarteDAOJdbcImpl();
 			} catch (DALException e) {
