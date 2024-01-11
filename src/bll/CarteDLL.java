@@ -2,23 +2,23 @@ package bll;
 
 import java.util.List;
 
-import bo.Table;
+import bo.Carte;
+import dal.CarteDAOJdbcImpl;
 import dal.DALException;
 import dal.GenericDAO;
-import dal.TableDAOJdbcImpl;
 
-public class TableDll {
-		private GenericDAO<Table> dao;
+public class CarteDLL {
+		private GenericDAO<Carte> dao;
 		
-		public TableDll() throws BLLException {
+		public CarteDLL() throws BLLException {
 			try {
-				dao = new TableDAOJdbcImpl();
+				dao = new CarteDAOJdbcImpl();
 			} catch (DALException e) {
 				throw new BLLException("Echec de la connexion", e);
 			}
 		}
 		
-		public List<Table> selectAll() throws BLLException {
+		public List<Carte> selectAll() throws BLLException {
 			try {
 				return dao.selectAll();
 			} catch (DALException e) {
@@ -26,7 +26,7 @@ public class TableDll {
 			}
 		}
 		
-		public Table selectById(int id) throws BLLException {
+		public Carte selectById(int id) throws BLLException {
 			try {
 				return dao.selectById(id);
 			} catch (DALException e) {
@@ -34,21 +34,21 @@ public class TableDll {
 			}
 		}
 		
-		public Table insert(int numero, int nombre_places) throws BLLException {
+		public Carte insert(String nom) throws BLLException {
 			BLLException blleException = new BLLException();
-			Table table = new Table(numero, nombre_places);
+			Carte carte = new Carte(nom);
 			try {
-				dao.insert(table);
+				dao.insert(carte);
 			} catch (DALException e) {
 				throw new BLLException("Echec de l'insertion", e);
 			}
-			return table;
+			return carte;
 		}
 		
-		public void update(Table table) throws BLLException {
+		public void update(Carte carte) throws BLLException {
 			
 			try {
-				dao.update(table);
+				dao.update(carte);
 			} catch (DALException e) {
 				throw new BLLException("Echec de la mise a jour", e);
 			}

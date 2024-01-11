@@ -1,3 +1,5 @@
+
+
 package dal;
 
 import java.sql.Connection;
@@ -26,8 +28,7 @@ private static final String TABLE_NAME = " tables ";
 	
 	public List<Table> selectAll() throws DALException {
 		List<Table> tables = new ArrayList<>(); 
-		// alt + shift + r pour renommer partout
-		
+	
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT);
 			ResultSet rs = ps.executeQuery();
@@ -50,7 +51,7 @@ private static final String TABLE_NAME = " tables ";
 		Table table = null;
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT_BY_ID);
-			ps.setInt(1, id); // Remplace le '?' numero 1 par la valeur de l'id
+			ps.setInt(1, id); 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				table = new Table();
@@ -68,17 +69,15 @@ private static final String TABLE_NAME = " tables ";
 	
 	public void insert(Table table) throws DALException {
 		try {
-			// L'ajout de RETURN_GENERATED_KEYS permet de récupérer l'id généré par la base
+
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, table.getNumero());
 			ps.setInt(2, table.getNombre_places());
-
 			ps.executeUpdate();
-			
-			// Le bloc suivant permet de faire la récupération de l'id
+
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()) { // Va chercher dans le resultat, la première ligne
-				int id = rs.getInt(1); // plus précisément, le int à la première colonne
+			if (rs.next()) { 
+				int id = rs.getInt(1); 
 				table.setId(id);
 			}
 		} catch (SQLException e) {
@@ -110,26 +109,4 @@ private static final String TABLE_NAME = " tables ";
 			throw new DALException("Impossible de supprimer la table d'id " + id, e);
 		}
 	}
-	
-
-	
-//public static void main(String[] args) {
-//
-//
-//	   TableDAOJdbcImpl tableDAO = new TableDAOJdbcImpl();
-//
-//	    // 1. Assurez-vous d'avoir une table avec des données dans votre base de données.
-//
-//	    // 2. Appelez la méthode selectAll.
-//
-//	   Table table = new Table();
-//	   table.setNumero(1);
-//	   table.setNombre_places(13);
-//	   
-//	   
-//	    tableDAO.insert(table);
-//
-//	    // 3. Affichez les résultats.
-//
-//}
 }
