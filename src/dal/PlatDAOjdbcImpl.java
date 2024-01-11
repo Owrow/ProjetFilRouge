@@ -99,20 +99,15 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 	public void update(Plat plat) {
 		try {
-			PreparedStatement ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = cnx.prepareStatement(UPDATE);
 			ps.setString(1, plat.getNom());
 			ps.setString(2, plat.getDescription());
 			ps.setFloat (3, plat.getPrix() );
+			plat.setId(plat.getId());
 			ps.executeUpdate();
 
 
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) { 
-					int id = rs.getInt(1); 
-					plat.setId(id);
-				}
-
-			} catch (SQLException e) {
+				} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

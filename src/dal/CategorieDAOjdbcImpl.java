@@ -30,30 +30,30 @@ public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 		List<Categorie> listeCategorie = new ArrayList<>(); 
 
 
-		
-			PreparedStatement ps;
-			try {
-				ps = cnx.prepareStatement(SELECT);
-				ResultSet rs = ps.executeQuery();
-				while (rs.next()) {
-					Categorie categorie = new Categorie();
 
-					categorie.setNom(rs.getString("nom"));
+		PreparedStatement ps;
+		try {
+			ps = cnx.prepareStatement(SELECT);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Categorie categorie = new Categorie();
+
+				categorie.setNom(rs.getString("nom"));
 
 
-					listeCategorie.add(categorie);
-				}
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				listeCategorie.add(categorie);
 			}
-		
 
-			return listeCategorie;
-		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	
+
+		return listeCategorie;
+
+
+
 	}
 
 	@Override
@@ -75,25 +75,25 @@ public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 					id = rs.getInt(1); 
 					categorie.setId(id);
 				}}
-			
+
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 
-			return categorie;
 
-		}
-	
+		return categorie;
+
+	}
+
 	@Override
 	public void insert(Categorie categorie) {
 		try {
 
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, categorie.getNom());
-			
+
 			ps.executeUpdate();
 
 
@@ -107,9 +107,9 @@ public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 
 		}
 	}
-		
-	
-	
+
+
+
 
 
 	@Override
@@ -118,22 +118,19 @@ public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 
 		PreparedStatement ps;
 		try {
-			ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setString(1, categorie.getNom());
+			ps = cnx.prepareStatement(UPDATE);
+			ps.setInt(1, categorie.getId());
+			ps.setString(2, categorie.getNom());
+
 			ps.executeUpdate();
 
 
-			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()) { 
-				int id = rs.getInt(1); 
-				categorie.setId(id);
-			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
 
 
@@ -153,7 +150,7 @@ public class CategorieDAOjdbcImpl implements GenericDAO<Categorie> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 
 
 
