@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Table;
 
-public class TableDAOJdbcImpl implements GenericDao<Table>{
+public class TableDAOJdbcImpl implements GenericDAO<Table>{
 private static final String TABLE_NAME = " tables ";
 	
 	private static final String DELETE = "DELETE FROM "+ TABLE_NAME +" WHERE id = ?";

@@ -11,7 +11,7 @@ import java.util.List;
 
 import bo.Restaurant;
 
-public class RestaurantDAOjdbcImpl implements GenericDao<Restaurant> {
+public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 
 	private static final String TABLE_NAME = " restaurant ";
 

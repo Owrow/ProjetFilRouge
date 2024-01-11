@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Plat;
 
-public class PlatDAOjdbcImpl implements GenericDao<Plat> {
+public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 	private static final String TABLE_NAME = " plats ";
 
