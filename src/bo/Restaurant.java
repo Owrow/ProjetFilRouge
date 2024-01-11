@@ -9,6 +9,7 @@ private String nom;
 private String adresse;
 private LocalTime ouverture;
 private LocalTime fermeture;
+
 public Restaurant() {
 	super();
 }
