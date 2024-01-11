@@ -2,8 +2,6 @@ package dal;
 
 import java.util.List;
 
-
-
 public interface GenericDao<T> {
 	
 	List<T> selectAll() throws DALException;
@@ -11,6 +9,5 @@ public interface GenericDao<T> {
 	void insert(T donnee) throws DALException;
 	void update(T donnee) throws DALException;
 	void delete(int T) throws DALException;
-	
 
 }

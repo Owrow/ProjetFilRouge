@@ -9,7 +9,7 @@ import java.util.List;
 
 import bo.Plat;
 
-public class PlatDaoJdbcImpl implements GenericDao<Plat> {
+public class PlatDAOjdbcImpl implements GenericDao<Plat> {
 
 	private static final String TABLE_NAME = " plats ";
 
@@ -21,7 +21,9 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 	private Connection cnx;
 
-	public PlatDaoJdbcImpl() throws DALException {
+
+	public PlatDAOjdbcImpl() {
+
 		cnx = ConnectionProvider.getConnection();
 	}
 
@@ -97,32 +99,29 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 	public void update(Plat plat) throws DALException {
 		try {
-			PreparedStatement ps = cnx.prepareStatement(UPDATE);
+			PreparedStatement ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, plat.getNom());
 			ps.setString(2, plat.getDescription());
 			ps.setFloat (3, plat.getPrix() );
-			ps.setInt   (4, plat.getId());
-
 			ps.executeUpdate();
+
 
 		} catch (SQLException e) {
 			throw new DALException("Impossible de mettre à jour les informations du plat", e);
 		}
 	}
 
-	public void delete(int id) throws DALException{
-
-		PreparedStatement ps;
+	public void delete(int id) throws DALException {
 		try {
-			ps = cnx.prepareStatement(DELETE);
+			PreparedStatement ps = cnx.prepareStatement(DELETE);
 			ps.setInt(1, id);
-		    ps.executeUpdate();
-
+			int nbLignesSupprimees = ps.executeUpdate();
+			if (nbLignesSupprimees == 0) {
+				throw new DALException("Echec de suppression du plat d'id " + id, null);
+			}
 		} catch (SQLException e) {
-			throw new DALException("Impossible de supprimer ce plat", e);
+			throw new DALException("Impossible de supprimer ce plat d'id " + id, e);
 		}
-
 	}
-}
-
-
+		
+		}
