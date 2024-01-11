@@ -22,8 +22,7 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 	private Connection cnx;
 
 
-	public PlatDAOjdbcImpl() {
-
+	public PlatDAOjdbcImpl() throws DALException {
 		cnx = ConnectionProvider.getConnection();
 	}
 
