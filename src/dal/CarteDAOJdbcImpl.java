@@ -1,5 +1,3 @@
-
-
 package dal;
 
 import java.sql.Connection;
@@ -9,88 +7,81 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Table;
+import bo.Carte;
 
-public class TableDAOJdbcImpl implements GenericDAO<Table>{
-private static final String TABLE_NAME = " tables ";
+public class CarteDAOJdbcImpl implements GenericDao<Carte>{
+private static final String TABLE_NAME = " cartes ";
 	
 	private static final String DELETE = "DELETE FROM "+ TABLE_NAME +" WHERE id = ?";
-	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET numero = ?, nombre_places = ? WHERE id = ?";
-	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (id_restaurant,numero, nombre_places) VALUES (1,?,?)";
+	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET nom = ? WHERE id = ?";
+	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (nom) VALUES (?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM "+ TABLE_NAME +" WHERE id = ?";
 	private static final String SELECT = "SELECT * FROM "+ TABLE_NAME;
 	
 	private Connection cnx;
 	
-	public TableDAOJdbcImpl() throws DALException {
+	public CarteDAOJdbcImpl() throws DALException {
 		cnx = ConnectionProvider.getConnection();
 	}
 	
-	public List<Table> selectAll() throws DALException {
-		List<Table> tables = new ArrayList<>(); 
-	
+	public List<Carte> selectAll() throws DALException {
+		List<Carte> cartes = new ArrayList<>(); 
+		
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Table table = new Table();
-				table.setId(rs.getInt("id"));
-				table.setNumero(rs.getInt("numero"));
-				table.setNombre_places(rs.getInt("nombre_place"));
-			
-				tables.add(table);
+				Carte carte = new Carte();
+				carte.setId(rs.getInt("id"));
+				carte.setNom(rs.getString("nom"));
+				cartes.add(carte);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 
 		}
-		return tables;
+		return cartes;
 	}
 	
-	public Table selectById(int id) throws DALException {
-		Table table = null;
+	public Carte selectById(int id) throws DALException {
+		Carte carte = null;
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT_BY_ID);
 			ps.setInt(1, id); 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				table = new Table();
-				table.setId(rs.getInt("id"));
-				table.setNumero(rs.getInt("numero"));
-				table.setNombre_places(rs.getInt("nombre_place"));
+				carte = new Carte();
+				carte.setId(rs.getInt("id"));
+				carte.setNom(rs.getString("nom"));
 
 }
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
 		}
-		return table;
+		return carte;
 	}
 	
-	public void insert(Table table) throws DALException {
+	public void insert(Carte carte) throws DALException {
 		try {
-
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, table.getNumero());
-			ps.setInt(2, table.getNombre_places());
+			ps.setString(1, carte.getNom());
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()) { 
+			if (rs.next()) {
 				int id = rs.getInt(1); 
-				table.setId(id);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void update(Table table) throws DALException {
+	public void update(Carte carte) throws DALException {
 		try {
 			PreparedStatement ps = cnx.prepareStatement(UPDATE);
-			ps.setInt(1, table.getNumero());
-			ps.setInt(2, table.getNombre_places());
-			ps.setInt(3, table.getId());
+			ps.setString(1, carte.getNom());
+			ps.setInt(2, carte.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,4 +99,5 @@ private static final String TABLE_NAME = " tables ";
 			e.printStackTrace();
 		}
 	}
+	
 }
