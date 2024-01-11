@@ -21,11 +21,11 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 	private Connection cnx;
 
-	public PlatDaoJdbcImpl() {
+	public PlatDaoJdbcImpl() throws DALException {
 		cnx = ConnectionProvider.getConnection();
 	}
 
-	public List<Plat> selectAll(){
+	public List<Plat> selectAll() throws DALException{
 		List<Plat> listePlat = new ArrayList<>();
 
 
@@ -42,8 +42,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 			} 
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations du plat", e);
 		}
 
 
@@ -51,7 +50,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 		return listePlat;
 	}
 
-	public Plat selectById(int id)  {
+	public Plat selectById(int id) throws DALException  {
 		Plat plat = null;
 		PreparedStatement ps;
 		try {
@@ -65,8 +64,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations du plat de l'id", e);
 		}
 
 
@@ -75,7 +73,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 		return plat;
 	}
 
-	public void insert(Plat plat) {
+	public void insert(Plat plat) throws DALException {
 		try {
 
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -91,13 +89,13 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 				plat.setId(rs.getInt(id));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible d'inserer les donnees du plat", e);
 
 		}
 	}
 
 
-	public void update(Plat plat) {
+	public void update(Plat plat) throws DALException {
 		try {
 			PreparedStatement ps = cnx.prepareStatement(UPDATE);
 			ps.setString(1, plat.getNom());
@@ -108,11 +106,11 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de mettre à jour les informations du plat", e);
 		}
 	}
 
-	public void delete(int id){
+	public void delete(int id) throws DALException{
 
 		PreparedStatement ps;
 		try {
@@ -121,8 +119,7 @@ public class PlatDaoJdbcImpl implements GenericDao<Plat> {
 		    ps.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("Impossible de supprimer ce plat", e);
 		}
 
 	}

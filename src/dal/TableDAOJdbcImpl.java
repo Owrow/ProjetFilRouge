@@ -40,7 +40,7 @@ private static final String TABLE_NAME = " tables ";
 				tables.add(table);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations de la table", e);
 
 		}
 		return tables;
@@ -60,7 +60,7 @@ private static final String TABLE_NAME = " tables ";
 
 }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de recuperer les informations de la table d'id " + id, e);
 			
 		}
 		return table;
@@ -82,7 +82,7 @@ private static final String TABLE_NAME = " tables ";
 				table.setId(id);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible d'inserer les donnees de table.", e);
 		}
 	}
 	
@@ -94,7 +94,8 @@ private static final String TABLE_NAME = " tables ";
 			ps.setInt(3, table.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException(
+					"Impossible de mettre a jour les informations pour la table d'id " + table.getId(), e);
 		}
 	}
 	
@@ -106,7 +107,7 @@ private static final String TABLE_NAME = " tables ";
 			if (nbLignesSupprimees == 0) {
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Impossible de supprimer la table d'id " + id, e);
 		}
 	}
 	
