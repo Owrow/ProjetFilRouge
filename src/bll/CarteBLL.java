@@ -37,6 +37,13 @@ public class CarteBLL {
 		public Carte insert(String nom) throws BLLException {
 			BLLException blleException = new BLLException();
 			Carte carte = new Carte(nom);
+			if (nom.length() < 2) {
+				blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+			}
+			
+			if (nom.length() > 30) {
+				blleException.ajouterErreur("Le nom doit faire maximum 30 caractères");
+			}
 			try {
 				dao.insert(carte);
 			} catch (DALException e) {
@@ -46,7 +53,14 @@ public class CarteBLL {
 		}
 		
 		public void update(Carte carte) throws BLLException {
+			BLLException blleException = new BLLException();
+			if (carte.getNom().length() < 2) {
+				blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+			}
 			
+			if (carte.getNom().length() > 30) {
+				blleException.ajouterErreur("Le nom doit faire maximum 30 caractères");
+			}
 			try {
 				dao.update(carte);
 			} catch (DALException e) {

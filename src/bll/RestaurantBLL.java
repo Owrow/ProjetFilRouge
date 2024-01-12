@@ -38,10 +38,24 @@ public class RestaurantBLL {
 	}
 
 	public Restaurant insert(String nom, String adresse, LocalTime ouverture, LocalTime fermeture) throws BLLException {
-
-		
-
 		Restaurant restaurant = new Restaurant(nom, adresse, ouverture, fermeture);
+		BLLException blleException = new BLLException();
+		if (nom.length() < 2) {
+			blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+		}
+		
+		if (nom.length() > 30) {
+			blleException.ajouterErreur("Le nom doit faire maximum 30 caractères");
+		}
+		
+		if (adresse.length() < 2) {
+			blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+		}
+		
+		if (adresse.length() > 80) {
+			blleException.ajouterErreur("Le nom doit faire maximum 80 caractères");
+		}
+		
 		try {
 			dao.insert(restaurant);
 		} catch (DALException e) {
@@ -52,6 +66,22 @@ public class RestaurantBLL {
 
 	public void update(Restaurant restaurant) throws BLLException {
 
+		BLLException blleException = new BLLException();
+		if (restaurant.getNom().length() < 2) {
+			blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+		}
+		
+		if (restaurant.getNom().length() > 30) {
+			blleException.ajouterErreur("Le nom doit faire maximum 30 caractères");
+		}
+		
+		if (restaurant.getAdresse().length() < 2) {
+			blleException.ajouterErreur("Le nom doit faire au moins 2 caractères");
+		}
+		
+		if (restaurant.getAdresse().length() > 80) {
+			blleException.ajouterErreur("Le nom doit faire maximum 80 caractères");
+		}
 		try {
 			dao.update(restaurant);
 		} catch (DALException e) {

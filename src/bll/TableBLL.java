@@ -38,6 +38,11 @@ public class TableBLL {
 		public Table insert(int numero, int nombre_places, int id_restaurant) throws BLLException {
 			BLLException blleException = new BLLException();
 			Table table = new Table(numero, nombre_places);
+			if (numero < 0)
+				blleException.ajouterErreur("Le numéro de table doit être positif");
+			if (nombre_places < 0)
+				blleException.ajouterErreur("Le nombre de place doit être positif");
+			
 			try {
 				dao.insert(table);
 			} catch (DALException e) {
@@ -47,6 +52,11 @@ public class TableBLL {
 		}
 		
 		public void update(Table table) throws BLLException {
+			BLLException blleException = new BLLException();
+			if (table.getNumero() < 0)
+				blleException.ajouterErreur("Le numéro de table doit être positif");
+			if (table.getNombre_places() < 0)
+				blleException.ajouterErreur("Le nombre de place doit être positif");
 			
 			try {
 				dao.update(table);
