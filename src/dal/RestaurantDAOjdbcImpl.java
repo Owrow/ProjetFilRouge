@@ -1,7 +1,6 @@
 package dal;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.Carte;
 import bo.Restaurant;
 
 public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
@@ -20,8 +20,8 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 			+ " SET nom = ?, adresse = ?, ouverture = ?, fermeture = ? WHERE id = ?";
 	private static final String INSERT = "INSERT INTO " + TABLE_NAME
 			+ " (nom, adresse, ouverture, fermeture) VALUES (?,?,?,?)";
-	private static final String SELECT_BY_ID = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
-	private static final String SELECT = "SELECT * FROM " + TABLE_NAME;
+	private static final String SELECT_BY_ID = "r.id, r.nom, r.adresse, r.ouverture, r.fermeture FROM " + TABLE_NAME + " r WHERE id = ?";
+	private static final String SELECT = "SELECT r.id, r.nom, r.adresse, r.ouverture, r.fermeture FROM " + TABLE_NAME + " r";
 
 	private Connection cnx;
 	
@@ -37,6 +37,7 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Restaurant restaurant = new Restaurant();
+
 				restaurant.setId(rs.getInt("id"));
 				restaurant.setNom(rs.getString("nom"));
 				restaurant.setAdresse(rs.getString("adresse"));
@@ -53,12 +54,14 @@ public class RestaurantDAOjdbcImpl implements GenericDAO<Restaurant> {
 
 	public Restaurant selectById(int id) throws DALException {
 		Restaurant restaurant = null;
+		Carte carte = null;
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT_BY_ID);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				restaurant = new Restaurant();
+				carte = new Carte();
 				restaurant.setId(rs.getInt("id"));
 				restaurant.setNom(rs.getString("nom"));
 				restaurant.setAdresse(rs.getString("adresse"));
