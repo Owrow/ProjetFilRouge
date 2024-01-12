@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.Restaurant;
 import bo.Table;
 
 public class TableDAOJdbcImpl implements GenericDAO<Table>{
@@ -16,7 +17,7 @@ private static final String TABLE_NAME = " tables ";
 	
 	private static final String DELETE = "DELETE FROM "+ TABLE_NAME +" WHERE id = ?";
 	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET numero = ?, nombre_places = ? WHERE id = ?";
-	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (id_restaurant,numero, nombre_places) VALUES (1,?,?)";
+	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (id_restaurant,numero, nombre_places) VALUES (?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM "+ TABLE_NAME +" WHERE id = ?";
 	private static final String SELECT = "SELECT * FROM "+ TABLE_NAME;
 	
@@ -28,12 +29,13 @@ private static final String TABLE_NAME = " tables ";
 	
 	public List<Table> selectAll() throws DALException {
 		List<Table> tables = new ArrayList<>(); 
-	
+
 		try {
 			PreparedStatement ps = cnx.prepareStatement(SELECT);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Table table = new Table();
+				Restaurant restaurant = new Restaurant();
 				table.setId(rs.getInt("id"));
 				table.setNumero(rs.getInt("numero"));
 				table.setNombre_places(rs.getInt("nombre_place"));
@@ -67,12 +69,20 @@ private static final String TABLE_NAME = " tables ";
 		return table;
 	}
 	
-	public void insert(Table table) throws DALException {
+	@Override
+	public void insert(Table donnee) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void insert(Table table, int id_restaurant) throws DALException {
 		try {
 
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, table.getNumero());
-			ps.setInt(2, table.getNombre_places());
+			
+			ps.setInt(1, id_restaurant);
+			ps.setInt(2, table.getNumero());
+			ps.setInt(3, table.getNombre_places());
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();
@@ -84,6 +94,9 @@ private static final String TABLE_NAME = " tables ";
 			throw new DALException("Impossible d'inserer les donnees de table.", e);
 		}
 	}
+	
+
+	
 	
 	public void update(Table table) throws DALException {
 		try {
@@ -109,4 +122,7 @@ private static final String TABLE_NAME = " tables ";
 			throw new DALException("Impossible de supprimer la table d'id " + id, e);
 		}
 	}
+
+
+
 }

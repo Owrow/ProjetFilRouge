@@ -3,6 +3,7 @@ package bll;
 import java.time.LocalTime;
 import java.util.List;
 
+import bo.Carte;
 import bo.Restaurant;
 import dal.DALException;
 import dal.GenericDAO;
