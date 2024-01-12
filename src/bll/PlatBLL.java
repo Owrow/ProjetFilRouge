@@ -2,6 +2,7 @@ package bll;
 
 import java.util.List;
 
+import bo.Categorie;
 import bo.Plat;
 import dal.DALException;
 import dal.GenericDAO;
@@ -35,9 +36,9 @@ public class PlatBLL {
 		}
 	}
 
-	public Plat insert(String nom, String description_plat, float prix) throws BLLException {
+	public Plat insert(String nom, String description_plat, float prix, Categorie categorie) throws BLLException {
 
-		Plat plat = new Plat(nom, description_plat, prix);
+		Plat plat = new Plat(nom, description_plat, prix, categorie);
 		try {
 			dao.insert(plat);
 		} catch (DALException e) {
