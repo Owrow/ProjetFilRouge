@@ -30,7 +30,7 @@ public class TestMain {
 		creerCarte();
 
 
-		//ajoutRestaurant();
+		ajoutRestaurant();
 
 
 
