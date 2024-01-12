@@ -1,5 +1,6 @@
 package bll;
 
+import java.util.Arrays;
 import java.util.List;
 
 import bo.Categorie;
@@ -36,6 +37,12 @@ public class CategorieBLL {
 	}
 
 	public Categorie insert(String nom) throws BLLException {
+		BLLException bbleException = new BLLException();
+
+		List<String> valeursValides = Arrays.asList("Entrée", "Plat", "Dessert", "Boisson");
+		if (!valeursValides.contains(nom)) {
+			bbleException.ajouterErreur("Le nom du plat doit valoir Entrée, Plat, Dessert ou Boisson");
+		}
 
 		Categorie categorie = new Categorie(nom);
 		try {

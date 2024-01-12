@@ -37,7 +37,7 @@ public class PlatCarteBLL {
 		}
 		
 		public PlatCarte insert(Plat plat, Carte carte) throws BLLException {
-			BLLException blleException = new BLLException();
+			BLLException blleException = new BLLException();						
 			PlatCarte table = new PlatCarte(plat, carte);
 			try {
 				dao.insert(table);
