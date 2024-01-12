@@ -6,14 +6,16 @@ public class Plat {
 	private String nom;
 	private String description;
 	private float prix;
+	private Categorie categoriePlat;
 	
 	
 	
-	public Plat(String nom, String description, float prix) {
+	public Plat(String nom, String description, float prix, Categorie categoriePlat) {
 		
 		this.nom = nom;
 		this.description = description;
 		this.prix = prix;
+		this.categoriePlat = categoriePlat;
 	}
 
 
@@ -30,6 +32,7 @@ public class Plat {
 		this.nom = nom;
 		this.description = description;
 		this.prix = prix;
+		
 	}
 
 
@@ -78,6 +81,18 @@ public void setId(int id) {
 
 	public void setPrix(float prix) {
 		this.prix = prix;
+	}
+
+
+
+	public Categorie getCategoriePlat() {
+		return categoriePlat;
+	}
+
+
+
+	public void setCategoriePlat(Categorie categoriePlat) {
+		this.categoriePlat = categoriePlat;
 	}
 
 

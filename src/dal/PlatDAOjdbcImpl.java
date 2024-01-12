@@ -80,8 +80,9 @@ public class PlatDAOjdbcImpl implements GenericDAO<Plat> {
 
 			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, plat.getNom());
+			ps.setFloat (3, plat.getPrix());
 			ps.setString(2, plat.getDescription());
-			ps.setFloat(3, plat.getPrix());
+			ps.setString(4, plat.getCategoriePlat().toString());
 			ps.executeUpdate();
 
 

@@ -1,6 +1,7 @@
 package bo;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Restaurant {
 	
@@ -9,6 +10,7 @@ private String nom;
 private String adresse;
 private LocalTime ouverture;
 private LocalTime fermeture;
+
 
 public Restaurant() {
 	super();
