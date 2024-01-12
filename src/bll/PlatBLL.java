@@ -29,7 +29,7 @@ public class PlatBLL {
 			throw new BLLException("Echec de la recuperation des plats", e);
 		}
 	}
-	
+
 	public Plat selectById(int id) throws BLLException {
 		try {
 			return dao.selectById(id);
@@ -39,6 +39,33 @@ public class PlatBLL {
 	}
 
 	public Plat insert(String nom, String description_plat, float prix, Categorie categorie) throws BLLException {
+		BLLException blleException = new BLLException();
+		if (nom.length() < 5) {
+			blleException.ajouterErreur("Le nom doit faire au moins 5 caractères");
+		}
+
+		if (nom.length() > 50) {
+			blleException.ajouterErreur("Le nom doit faire maximum 50 caractères");
+		}
+
+		if (description_plat.length() < 5) {
+			blleException.ajouterErreur("Le nom doit faire au moins 10 caractères");
+		}
+
+		if (description_plat.length() > 100) {
+			blleException.ajouterErreur("Le nom doit faire maximum 100 caractères");
+		}
+
+		if (prix < 0) {
+			blleException.ajouterErreur("Le prix doit être un nombre positif");
+		} else {
+			String prixAsString = String.valueOf(prix);
+			if (!prixAsString.matches("\\d+(\\.\\d+)?")) {
+
+				blleException.ajouterErreur(
+						"Le prix doit contenir uniquement des chiffres et éventuellement un point décimal");
+			}
+		}
 
 		Plat plat = new Plat(nom, description_plat, prix, categorie);
 		try {
