@@ -17,6 +17,7 @@ private static final String TABLE_NAME = " cartes ";
 	private static final String UPDATE = "UPDATE "+ TABLE_NAME +" SET nom = ? WHERE id = ?";
 	private static final String INSERT = "INSERT INTO "+ TABLE_NAME +" (nom) VALUES (?)";
 	private static final String INSERTPLATCARTE = "INSERT INTO plats_cartes (id_plat,id_carte) VALUES (?,?)";
+	private static final String INSERTINTORESTAURANT = "INSERT INTO restaurants (id_carte) VALUES (?)";
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM "+ TABLE_NAME +" WHERE id = ?";
 	private static final String SELECT = "SELECT * FROM "+ TABLE_NAME;
@@ -95,7 +96,19 @@ private static final String TABLE_NAME = " cartes ";
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
-			throw new DALException("Impossible d'inserer les donnees de la carte", e);
+			throw new DALException("Impossible d'inserer les donnees de la carte et des plats dans la table plats_cartes", e);
+		}
+	}
+	
+	public void insertPlatCarte(int id) throws DALException {
+		try {
+			PreparedStatement ps = cnx.prepareStatement(INSERTINTORESTAURANT);
+
+				ps.setInt(1, id);
+				ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DALException("Impossible d'inserer l'id de la carte dans le restaurant", e);
 		}
 	}
 	
