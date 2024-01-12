@@ -6,8 +6,10 @@ public class Plat {
 	private String nom;
 	private String description;
 	private float prix;
+
 	private Categorie categorie;
 	
+
 	public Plat() {
 		super();
 	}
@@ -19,6 +21,7 @@ public class Plat {
 		this.nom = nom;
 		this.description = description;
 		this.prix = prix;
+		
 	}
 	
 
@@ -29,6 +32,7 @@ public class Plat {
 		this.description = description;
 		this.prix = prix;
 	}
+
 
 
 	public Plat(String nom, String description, float prix, Categorie categorie) {
@@ -76,6 +80,7 @@ public class Plat {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+
 	@Override
 	public String toString() {
 		return "Plat [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", categorie="
