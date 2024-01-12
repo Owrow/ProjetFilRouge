@@ -1,11 +1,14 @@
 package bo;
 
+import java.util.List;
+
 public class Plat {
 	
 	private int id;
 	private String nom;
 	private String description;
 	private float prix;
+	private List<Carte> cartes;
 
 	private Categorie categorie;
 	
@@ -24,6 +27,7 @@ public class Plat {
 		
 	}
 	
+
 
 
 	public Plat(String nom, String description, float prix) {
@@ -50,6 +54,30 @@ public class Plat {
 		this.prix = prix;
 		this.categorie = categorie;
 	}
+	
+
+	
+	
+	public Plat(String nom, String description, float prix, List<Carte> cartes, Categorie categorie) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.prix = prix;
+		this.cartes = cartes;
+		this.categorie = categorie;
+	}
+
+
+	public List<Carte> getCartes() {
+		return cartes;
+	}
+
+
+	public void setCartes(List<Carte> cartes) {
+		this.cartes = cartes;
+	}
+
+	
 	public int getId() {
 		return id;
 	}
@@ -83,8 +111,8 @@ public class Plat {
 
 	@Override
 	public String toString() {
-		return "Plat [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", categorie="
-				+ categorie + "]";
+		return "Plat [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", cartes="
+				+ cartes + ", categorie=" + categorie + "]";
 	}
 	
 	
