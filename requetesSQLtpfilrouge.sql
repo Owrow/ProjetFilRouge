@@ -12,7 +12,7 @@ CREATE TABLE roles (
  
 	id          INT       NOT NULL PRIMARY KEY IDENTITY,
  
-	type_role   CHAR(6)   NOT NULL,
+	libelle   CHAR(6)   NOT NULL,
  
 );
  
@@ -186,7 +186,7 @@ CREATE TABLE restaurants (
 	deletedAT          DATETIME NULL,
  
 	id           INT         NOT NULL  PRIMARY KEY IDENTITY,
-	id_carte	INT         NOT NULL,
+	id_carte	INT      NULL,
 	nom          VARCHAR(30) NOT NULL,
  
 	adresse      VARCHAR(80) NOT NULL,
