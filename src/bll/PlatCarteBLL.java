@@ -11,9 +11,11 @@ import dal.PlatCarteDAOjdbcImpl;
 
 public class PlatCarteBLL {
 		private GenericDAO<PlatCarte> dao;
+		private PlatCarteDAOjdbcImpl daoPlatCarte;
 		
 		public PlatCarteBLL() throws BLLException {
 			try {
+				daoPlatCarte = new PlatCarteDAOjdbcImpl();
 				dao = new PlatCarteDAOjdbcImpl();
 			} catch (DALException e) {
 				throw new BLLException("Echec de la connexion", e);
@@ -24,7 +26,7 @@ public class PlatCarteBLL {
 			try {
 				return dao.selectAll();
 			} catch (DALException e) {
-				throw new BLLException("Echec de la recuperation des composants", e);
+				throw new BLLException("Echec de la recuperation des plats cartes", e);
 			}
 		}
 		
@@ -32,19 +34,31 @@ public class PlatCarteBLL {
 			try {
 				return dao.selectById(id);
 			} catch (DALException e) {
-				throw new BLLException("Echec de la recuperation du composant d'id " + id, e);
+				throw new BLLException("Echec de la recuperation du plat carte d'id " + id, e);
 			}
 		}
 		
+		
+		public PlatCarte selectByPlatCarte(int id) throws BLLException{
+
+			try {
+				return daoPlatCarte.selectByIdCarte(id);
+			} catch (DALException e) {
+				throw new BLLException("Echec de la recuperation des plats et cartes pour l'id de carte" + id, e);
+			}
+			
+		}
+		
+		
 		public PlatCarte insert(Plat plat, Carte carte) throws BLLException {
 			BLLException blleException = new BLLException();						
-			PlatCarte table = new PlatCarte(plat, carte);
+			PlatCarte platCarte = new PlatCarte(plat, carte);
 			try {
-				dao.insert(table);
+				dao.insert(platCarte);
 			} catch (DALException e) {
 				throw new BLLException("Echec de l'insertion", e);
 			}
-			return table;
+			return platCarte;
 		}
 		
 		public void update(PlatCarte platCarte) throws BLLException {

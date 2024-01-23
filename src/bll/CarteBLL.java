@@ -3,6 +3,7 @@ package bll;
 import java.util.List;
 
 import bo.Carte;
+import bo.Plat;
 import dal.CarteDAOJdbcImpl;
 import dal.DALException;
 import dal.GenericDAO;
@@ -45,12 +46,55 @@ public class CarteBLL {
 				blleException.ajouterErreur("Le nom doit faire maximum 30 caractères");
 			}
 			try {
+				carte.setNom(nom);
+				
 				dao.insert(carte);
+				
 			} catch (DALException e) {
 				throw new BLLException("Echec de l'insertion", e);
 			}
 			return carte;
 		}
+		
+		
+		public void insertPlatCarte(int id, List<Plat> plats) throws BLLException {
+			BLLException blleException = new BLLException();
+
+			for (Plat plat : plats) {
+				if (plat.getId() == 0) {
+					blleException.ajouterErreur("Un plat de la liste a un ID null");
+					break;  
+				}
+
+				if (blleException.getErreurs().size()>0) {
+					throw blleException;
+				}
+
+				try {
+					CarteDAOJdbcImpl carteDao = new CarteDAOJdbcImpl();
+					carteDao.insertPlatCarte(id, plats);
+
+				} catch (DALException e) {
+					throw new BLLException("Echec de l'insertion", e);
+				}
+			}
+		}
+		
+		public void insertCarteDansRestaurant(int idCarte, int idRestaurant) throws BLLException {
+			BLLException blleException = new BLLException();
+			
+			try {
+				CarteDAOJdbcImpl carteDao = new CarteDAOJdbcImpl();
+				carteDao.insertCarteDansRestaurant(idCarte,idRestaurant);
+				
+			} catch (DALException e) {
+				throw new BLLException("Echec de l'insertion", e);
+			}
+		}
+		
+		
+		
+		
 		
 		public void update(Carte carte) throws BLLException {
 			BLLException blleException = new BLLException();
