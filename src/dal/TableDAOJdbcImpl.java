@@ -69,11 +69,6 @@ private static final String TABLE_NAME = " tables ";
 		return table;
 	}
 	
-	@Override
-	public void insert(Table donnee) throws DALException {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void insert(Table table, int id_restaurant) throws DALException {
 		try {
@@ -121,6 +116,12 @@ private static final String TABLE_NAME = " tables ";
 		} catch (SQLException e) {
 			throw new DALException("Impossible de supprimer la table d'id " + id, e);
 		}
+	}
+
+	@Override
+	public void insert(Table donnee) throws DALException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

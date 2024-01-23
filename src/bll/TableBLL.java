@@ -2,7 +2,6 @@ package bll;
 
 import java.util.List;
 
-import bo.Restaurant;
 import bo.Table;
 import dal.DALException;
 import dal.GenericDAO;
@@ -35,7 +34,7 @@ public class TableBLL {
 			}
 		}
 		
-		public Table insert(int numero, int nombre_places, int id_restaurant) throws BLLException {
+		public void insert(int numero, int nombre_places, int id_restaurant) throws BLLException {
 			BLLException blleException = new BLLException();
 			Table table = new Table(numero, nombre_places);
 			if (numero < 0)
@@ -44,11 +43,13 @@ public class TableBLL {
 				blleException.ajouterErreur("Le nombre de place doit être positif");
 			
 			try {
-				dao.insert(table);
+				TableDAOJdbcImpl tableDao = new TableDAOJdbcImpl();
+				tableDao.insert(table,id_restaurant);
+				
 			} catch (DALException e) {
 				throw new BLLException("Echec de l'insertion", e);
 			}
-			return table;
+
 		}
 		
 		public void update(Table table) throws BLLException {

@@ -15,6 +15,9 @@
 //			System.out.println("tentative ajout d'une categorie de plat :");
 //			System.out.println("Boisson");
 //
+//			bll.insert("Entree");
+//			bll.insert("Plat");
+//			bll.insert("Dessert");
 //			bll.insert("Boisson");
 //			System.out.println("*************************************");
 //			System.out.println("tentative de selection de toutes les categories");
